@@ -29,7 +29,7 @@ swapon $swap
 
 # Reflector
 pacman -Syy
-pacman -S reflector
+pacman -S --noconfirm reflector
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
@@ -39,31 +39,36 @@ pacstrap /mnt base base-devel linux linux-firmware nano vim dhcpcd sudo
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt
-printf $hostname > /etc/hostname
+printf "$hostname\n" > /etc/hostname
 
-printf "127.0.0.1 localhost\n::1 localhost\n 127.0.0.1 ${hostname}.localdomain ${hostname}"
+printf "127.0.0.1 localhost\n::1 localhost\n127.0.0.1 ${hostname}.localdomain ${hostname}\n"
 
 # Locale 
 timedatectl set-timezone America/Chicago
 
 # IDK if this is going to work
-printf "en_US.UTF-8 UTF-8\nen_US ISO-8859-1" > /etc/locale.gen
+printf "en_US.UTF-8 UTF-8\nen_US ISO-8859-1\n" > /etc/locale.gen
 
 locale-gen
 printf "LANG=$lang" > /etc/locale.conf
 export LANG=$lang
+
+printf "[multilib]\nInclude = /etc/pacman.d/mirrorlist\n" >> /etc/pacman.conf
 
 # Time
 ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
 hwclock --systohc
 
 # User setup
+echo "Root Password"
 passwd
 useradd -mg users -G wheel,storage,power -s /bin/bash $user
+echo "User Password"
 passwd $user
 
-visudo
-# %wheel ALL=(ALL) ALL
+# Add wheel to sudoers file
+echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
+
 
 # Grub install
 pacman -S grub efibootmgr dosfstools os-prober mtools
