@@ -71,8 +71,9 @@ echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
 
 
 # Grub install
-pacman -S grub efibootmgr dosfstools os-prober mtools
+pacman -Sy
+pacman -S --noconfirm grub efibootmgr dosfstools os-prober mtools
 mkdir /boot/efi
 mount $efi /boot/efi
-grub-install --target=x86_64-efi --bootleader-id=GRUB --efi-directory=/boot/efi
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
