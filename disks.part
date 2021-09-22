@@ -1,0 +1,7 @@
+label: gpt
+device: /dev/sda
+unit: sectors
+
+start=2048, size=550MiB, type=U
+size=4GiB, type=S
+type=L, bootable
