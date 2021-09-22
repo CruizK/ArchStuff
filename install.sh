@@ -46,7 +46,6 @@ printf "127.0.0.1 localhost\n::1 localhost\n127.0.0.1 ${hostname}.localdomain ${
 # Locale 
 timedatectl set-timezone America/Chicago
 
-# IDK if this is going to work
 printf "en_US.UTF-8 UTF-8\nen_US ISO-8859-1\n" > /etc/locale.gen
 
 locale-gen
