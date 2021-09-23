@@ -35,7 +35,9 @@ echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
 # Grub install
 pacman -Sy
 pacman -S --noconfirm grub efibootmgr dosfstools os-prober mtools
-mkdir /boot/efi
+echo "Creating /boot/efi on $1"
+sleep 5
+mkdir -p /boot/efi
 mount $1 /boot/efi
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
