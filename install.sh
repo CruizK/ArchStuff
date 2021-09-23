@@ -38,10 +38,10 @@ cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # Install
-pacstrap /mnt base base-devel linux linux-firmware nano vim dhcpcd sudo
-
+pacstrap /mnt base base-devel linux linux-firmware nano vim dhcpcd sudo git
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
+# Copy script to run as chroot, for box setup
 cp second.sh /mnt/second.sh
 chmod +x /mnt/second.sh
 arch-chroot /mnt ./second.sh $efi

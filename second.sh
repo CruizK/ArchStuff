@@ -31,11 +31,13 @@ passwd $user
 # Add wheel to sudoers file
 echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
 
+# Setup DHCP so you have internet on reboot
+systemctl start dhcpcd
+systemctl enable dhcpcd
 
 # Grub install
 pacman -Sy
 pacman -S --noconfirm grub efibootmgr dosfstools os-prober mtools
-echo "Creating /boot/efi on $1"
 mkdir -p /boot/efi
 mount $1 /boot/efi
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
