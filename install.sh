@@ -42,6 +42,7 @@ pacstrap /mnt base base-devel linux linux-firmware nano vim dhcpcd sudo
 
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
-chdmod +x second.sh
-cp second.sh /mnt/root/second.sh
-arch-chroot /mnt/root/second.sh $efi
+cp second.sh /mnt/second.sh
+chmod +x /mnt/second.sh
+arch-chroot /mnt ./second.sh $efi
+rm /mnt/second.sh
