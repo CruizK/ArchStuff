@@ -4,6 +4,11 @@ hostname="arch-btw"
 lang="en_US.UTF-8"
 user="cruizk"
 
+if [ $# -eq 0 ] then;
+  echo "./install.sh <drive_to_use>"
+  exit 1
+fi
+
 # Check if the drive is nvme
 if [[ $1 == *"nvme"* ]]; then
   drive_postfix="p"
