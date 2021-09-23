@@ -4,7 +4,7 @@ lang="en_US.UTF-8"
 
 printf "$hostname\n" > /etc/hostname
 
-printf "127.0.0.1 localhost\n::1 localhost\n127.0.0.1 ${hostname}.localdomain ${hostname}\n"
+printf "127.0.0.1 localhost\n::1 localhost\n127.0.0.1 ${hostname}.localdomain ${hostname}\n" > /etc/hosts
 
 # Locale 
 timedatectl set-timezone America/Chicago
@@ -36,7 +36,6 @@ echo '%wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo
 pacman -Sy
 pacman -S --noconfirm grub efibootmgr dosfstools os-prober mtools
 echo "Creating /boot/efi on $1"
-sleep 5
 mkdir -p /boot/efi
 mount $1 /boot/efi
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
