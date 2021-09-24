@@ -4,5 +4,9 @@ cd ~/yay
 makepkg -si
 
 # Installing packages
-pacman -S xorg
+pacman -S xorg-server
+# Nvidia
+pacman -S Nvidia
+# AMD
+# pacman -S xf86-video-amdgpu
 pacman -S firefox

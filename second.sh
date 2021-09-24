@@ -1,3 +1,4 @@
+# Change these depending on your preferences
 user="cruizk"
 hostname="arch-btw"
 lang="en_US.UTF-8"
